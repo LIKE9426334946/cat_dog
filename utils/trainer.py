@@ -1,7 +1,7 @@
 import torch
 from tqdm import tqdm
 
-def train_one_epoch(model, loader, optimizer, criterion, device):
+def train_one_epoch(model, loader, optimizer, criterion, device, epoch):
     model.train()
     total_loss = 0
 
@@ -23,7 +23,7 @@ def train_one_epoch(model, loader, optimizer, criterion, device):
 
     return total_loss / len(loader)
 
-def eval_model(model, loader, criterion, device):
+def eval_model(model, loader, criterion, device, epoch):
     model.eval()
     total_loss = 0
     correct = 0
