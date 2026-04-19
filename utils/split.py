@@ -10,9 +10,11 @@ def create_splits(config, save_dir):
     records = []
 
     for img in os.listdir(cat_dir):
-        records.append([os.path.join(cat_dir, img), 0, "Cat"])
+        if img.lower().endswith(".jpg"):
+            records.append([os.path.join(cat_dir, img), 0, "Cat"])
     for img in os.listdir(dog_dir):
-        records.append([os.path.join(dog_dir, img), 1, "Dog"])
+        if img.lower().endswith(".jpg"):
+            records.append([os.path.join(dog_dir, img), 1, "Dog"])
 
     df = pd.DataFrame(records, columns=["filepath","label","class"])
 
