@@ -1,0 +1,44 @@
+project:
+  name: cat_dog
+  seed: 23
+  device: cuda
+
+paths:
+  data_root: /kaggle/input/datasets/shaunthesheep/microsoft-catsvsdogs-dataset/PetImages   # 修改为你的Kaggle数据路径
+  cat_dir: Cat
+  dog_dir: Dog
+  runs_dir: ./runs
+  exp_name: exp_001
+
+data:
+  img_size: 224
+  num_workers: 2
+  train_ratio: 0.8
+  val_ratio: 0.1
+  test_ratio: 0.1
+  class_names: ["Cat", "Dog"]
+  label_map:
+    Cat: 0
+    Dog: 1
+
+augmentation:
+  horizontal_flip: true
+  rotation: 10
+  color_jitter: true
+
+model:
+  in_channels: 3
+  base_channels: 32
+  dropout: 0.5
+
+train:
+  batch_size: 64
+  epochs: 20
+  lr: 0.001
+  weight_decay: 0.0001
+
+loss:
+  type: BCEWithLogitsLoss
+
+inference:
+  threshold: 0.5
