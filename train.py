@@ -37,11 +37,15 @@ criterion = torch.nn.BCEWithLogitsLoss()
 best_acc = 0
 
 for epoch in range(config['train']['epochs']):
-    train_loss = train_one_epoch(model, train_loader, optimizer, criterion, device)
-    val_loss, val_acc = eval_model(model, val_loader, criterion, device)
+    train_loss = train_one_epoch(
+        model, train_loader, optimizer, criterion, device, epoch
+    )
 
-    print(f"Epoch {epoch}: train_loss={train_loss:.4f}, val_acc={val_acc:.4f}")
+    val_loss, val_acc = eval_model(
+        model, val_loader, criterion, device, epoch
+    )
 
+    print(f"\nEpoch {epoch}: train_loss={train_loss:.4f}, val_acc={val_acc:.4f}")
     if val_acc > best_acc:
         best_acc = val_acc
         torch.save(model.state_dict(), os.path.join(run_dir,"checkpoints/best_model.pth"))
